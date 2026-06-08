@@ -84,8 +84,8 @@ const booksStore: Book[] = [
   },
 ]
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const body = await request.json()
 
   const index = booksStore.findIndex((b) => b.id === id)
@@ -97,8 +97,8 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   return NextResponse.json(booksStore[index])
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
 
   const index = booksStore.findIndex((b) => b.id === id)
   if (index === -1) {
